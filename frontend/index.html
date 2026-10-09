@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scholarship Optimizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="hero">
+      <div class="hero-content">
+        <div class="eyebrow">Smart allocation dashboard</div>
+        <h1>Scholarship Optimizer</h1>
+        <p>Maximize student impact with a dynamic programming-based selection strategy.</p>
+      </div>
+      <div class="hero-badges">
+        <span class="chip">0/1 Knapsack</span>
+        <span class="chip">DP Algorithm</span>
+        <span class="chip">Budget driven</span>
+      </div>
+    </header>
+
+    <main class="container">
+      <section class="card info-card">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Optimization model</span>
+            <h2>Algorithm overview</h2>
+          </div>
+        </div>
+        <div class="algo-row">
+          <span class="badge">Time: O(n × B)</span>
+          <span class="badge">Space: O(n × B)</span>
+        </div>
+        <p class="muted">Each student is treated as an item with a cost and value. The model chooses the best combination that respects budget constraints without splitting awards.</p>
+      </section>
+
+      <section class="panel-grid">
+        <section class="card form-card">
+          <div class="section-header">
+            <div>
+              <span class="section-kicker">Step 1</span>
+              <h2>Set the budget</h2>
+            </div>
+          </div>
+          <label for="budget">Available scholarship budget (₹)</label>
+          <div class="input-with-prefix">
+            <span>₹</span>
+            <input type="number" id="budget" min="0" step="1" placeholder="100000">
+          </div>
+        </section>
+
+        <section class="card form-card">
+          <div class="section-header">
+            <div>
+              <span class="section-kicker">Step 2</span>
+              <h2>Add students</h2>
+            </div>
+          </div>
+
+          <form id="studentForm">
+            <div class="form-grid">
+              <div class="field">
+                <label for="name">Student name</label>
+                <input type="text" id="name" placeholder="Rahul">
+              </div>
+              <div class="field">
+                <label for="amount">Scholarship amount</label>
+                <input type="number" id="amount" min="1" step="1" placeholder="50000">
+              </div>
+              <div class="field">
+                <label for="priority">Priority score</label>
+                <input type="number" id="priority" min="0" step="1" placeholder="90">
+              </div>
+            </div>
+
+            <div class="button-row">
+              <button class="btn btn-primary" type="submit" id="addBtn">Add student</button>
+              <button class="btn btn-secondary" type="button" id="sampleBtn">Load sample</button>
+              <button class="btn btn-danger" type="button" id="clearBtn">Clear all</button>
+            </div>
+          </form>
+          <p id="formMessage" class="message"></p>
+        </section>
+      </section>
+
+      <section class="card table-card">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Step 3</span>
+            <h2>Student list</h2>
+          </div>
+          <span id="studentCounter" class="counter-pill">0 students</span>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Amount</th>
+                <th>Priority</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="studentTable"></tbody>
+          </table>
+        </div>
+
+        <div class="action-bar">
+          <button class="btn btn-primary btn-big" id="calculateBtn">Calculate optimal selection</button>
+        </div>
+        <p id="apiMessage" class="message"></p>
+      </section>
+
+      <section class="card hidden result-card" id="resultSection">
+        <div class="section-header">
+          <div>
+            <span class="section-kicker">Step 4</span>
+            <h2>Results</h2>
+          </div>
+        </div>
+
+        <div class="summary-grid">
+          <div class="summary success">
+            <span>Total budget</span>
+            <strong id="sumBudget"></strong>
+          </div>
+          <div class="summary info">
+            <span>Amount used</span>
+            <strong id="sumUsed"></strong>
+          </div>
+          <div class="summary warning">
+            <span>Remaining</span>
+            <strong id="sumRemaining"></strong>
+          </div>
+          <div class="summary accent">
+            <span>Priority</span>
+            <strong id="sumPriority"></strong>
+          </div>
+          <div class="summary neutral">
+            <span>Selected</span>
+            <strong id="sumCount"></strong>
+          </div>
+        </div>
+
+        <p class="muted dp-info" id="dpInfo"></p>
+
+        <div class="result-columns">
+          <div>
+            <h3 class="selected-title">Selected students</h3>
+            <div class="table-wrap compact">
+              <table>
+                <thead>
+                  <tr><th>Student</th><th>Amount</th><th>Priority</th></tr>
+                </thead>
+                <tbody id="selectedTable"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <h3 class="unselected-title">Unselected students</h3>
+            <div class="table-wrap compact">
+              <table>
+                <thead>
+                  <tr><th>Student</th><th>Amount</th><th>Priority</th></tr>
+                </thead>
+                <tbody id="unselectedTable"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">DAA Hackathon • Flask backend + HTML/CSS/JS interface</footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
