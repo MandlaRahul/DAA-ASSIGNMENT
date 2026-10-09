@@ -1,109 +1,49 @@
-# Student Scholarship Selection
+# 🎬 MovieHub – Movie Ticket Booking System
 
-## 1. Problem Statement
-A university has a limited scholarship budget. Many students apply. Each student needs a fixed scholarship amount and has a priority score (based on academic performance and financial need). The budget is not enough for everyone, so we must choose the best group of students.
+## 📌 Project Overview
 
-## 2. Objective
-Maximize the total student priority score without exceeding the available scholarship budget.
+MovieHub is a movie ticket booking website that allows users to explore movies, select theatres, choose seats, and proceed with ticket booking.
 
-## 3. Algorithm Used
-0/1 Knapsack using Dynamic Programming.
+## ✨ Features
 
-## 4. Why 0/1 Knapsack?
-Each student can either receive the full scholarship (1) or not receive it (0).
-A student cannot receive a partial scholarship in this model, so fractional knapsack / greedy is not suitable.
+* Browse available movies.
+* Explore theatres and locations.
+* Select movie showtimes.
+* Choose seats using an interactive seating layout.
+* View booking and payment options.
+* Responsive user interface.
+* Light and dark theme support.
 
-| Knapsack | Scholarship problem |
-|---|---|
-| Capacity | Available budget |
-| Item | Student |
-| Weight | Scholarship amount |
-| Value | Priority score |
+## 🛠️ Technologies Used
 
-## 5. Input
-- Available budget
-- Student name
-- Scholarship amount (integer rupees)
-- Priority score (integer)
+* HTML
+* CSS
+* JavaScript
 
-## 6. Output
-- Selected students
-- Unselected students
-- Total amount used
-- Remaining budget
-- Total priority score
+## 📂 Project Structure
 
-## 7. Algorithm
-1. Create a table `dp[n+1][B+1]` filled with 0.
-   `dp[i][b]` = maximum priority score using the first `i` students with budget `b`.
-2. For every student `i` and every budget `b`:
-   - If amount > b: `dp[i][b] = dp[i-1][b]` (cannot select)
-   - Else: `dp[i][b] = max(dp[i-1][b], dp[i-1][b-amount] + priority)`
-3. The answer (max priority) is `dp[n][B]`.
-4. Backtrack from `i = n, b = B`: if `dp[i][b] != dp[i-1][b]`, student `i` was selected, so reduce `b` by its amount.
-5. Students not selected go into the unselected list.
-
-Small optimization: all amounts and the budget are divided by their GCD (for example ₹10,000) before building the table. This gives the exact same answer with a much smaller table.
-
-## 8. Complexity
-Time Complexity: **O(n × B)**
-Space Complexity: **O(n × B)**
-
-n = number of students, B = budget (in money units). This is **pseudo-polynomial** because it depends on the numeric value of B, not just the input size.
-
-## 9. Project Structure
-```
-DAA-Hackathon-Team/
-├── README.md
-├── frontend/      index.html, style.css, script.js
-├── backend/       app.py, solution.py, requirements.txt
-├── test/          test_cases.txt
-├── docs/          algorithm.md
-└── presentation/  presentation.pptx
+```text
+MovieHub/
+├── index.html
+└── README.md
 ```
 
-## 10. How to Run
-Backend:
-```
-cd backend
-pip install -r requirements.txt
-python app.py
-```
-The API runs at `http://localhost:5000/api/optimize`.
+## 🚀 How to Run the Project
 
-Frontend:
-Open `frontend/index.html` in a browser.
+1. Download or clone the project repository.
+2. Open the project folder.
+3. Locate the `index.html` file.
+4. Open it in a web browser.
+5. Explore the MovieHub website.
 
-If the browser blocks the request, run a simple local server:
-```
-cd frontend
-python -m http.server 8000
-```
-then open `http://localhost:8000`.
+## 🎯 Project Objective
 
-## 11. Example
-Budget = ₹1,00,000
+The objective of MovieHub is to provide a simple and user-friendly interface for browsing movies and selecting seats for ticket booking.
 
-| Student | Amount | Priority |
-|---|---|---|
-| Rahul | 50000 | 90 |
-| Anjali | 30000 | 70 |
-| Kiran | 40000 | 80 |
-| Priya | 20000 | 60 |
+## 👨‍💻 Author
 
-Result: **Rahul, Anjali, Priya** selected. Amount used ₹1,00,000, remaining ₹0, total priority **220**. Kiran is not selected.
+Project developed as a web development project.
 
-API request:
-```json
-POST /api/optimize
-{ "budget": 100000, "students": [ { "name": "Rahul", "amount": 50000, "priority": 90 } ] }
-```
+## 📄 License
 
-## 12. Future Improvements
-- Login system
-- Database
-- Student eligibility verification
-- Admin dashboard
-- Multiple scholarship categories
-- Real university student data
-- Advanced optimization algorithms (branch and bound, space-optimized DP)
+This project is intended for educational purposes.
